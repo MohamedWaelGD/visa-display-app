@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center align-items-center mt-5" style="min-height: 100vh;">
+    <div class="bg-light rounded custom-form col-12 col-sm-10 col-md-7 col-xl-5 p-5 position-relative">
+        <div class="position-absolute m-3" style="bottom: 0; right: 0;">
+            <button class="btn btn-primary" (click)="changeBackground()"><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
+        <app-visa-card [visaCardNumberInput]="cardNumber" [cardHolderNameInput]="cardHolders" [monthInput]="monthExpiration" [yearInput]="yearExpiration" [ccvInput]="ccv" [rotateInput]="isFocusOnCCV"></app-visa-card>
+        <div class="my-2 py-5"></div>
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">Card Number</label>
+            <input type="text" class="form-control card-number-input" id="cardNumber" [(ngModel)]="cardNumber" (input)="onCardNumberChange()" (keypress)="checkNumberInput($event) && maxNumberInput(cardNumber, MAX_CARD_NUMBER, true)">
+        </div>
+        <div class="mb-3">
+            <label for="cardHolder" class="form-label">Card Holders</label>
+            <input type="text" class="form-control" id="cardHolder" [(ngModel)]="cardHolders" (keypress)="maxNumberInput(cardHolders, 21)">
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <label class="form-label">Expiration date</label>
+                <div class="d-flex gap-4">
+                    <div class="flex-grow-1 mb-3">
+                        <select class="form-select" [(ngModel)]="monthExpiration" aria-label="Default select example">
+                            <option value="" selected disabled>Month</option>
+                            <option *ngFor="let month of months" [value]="month">{{month}}</option>
+                        </select>
+                    </div>
+                    <div class="flex-grow-1 mb-3">
+                        <select class="form-select" [(ngModel)]="yearExpiration" aria-label="Default select example">
+                            <option value="" selected disabled>Year</option>
+                            <option *ngFor="let year of years" [value]="year | yearCard">{{year}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" [(ngModel)]="ccv" (keypress)="checkNumberInput($event) && maxNumberInput(ccv)" (focus)="isFocusOnCCV = true" (blur)="isFocusOnCCV = false">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary w-100 fw-bold p-3 mt-4 mb-3">SUBMIT</button>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="position-absolute text-white w-100" style="top: -25%; left: 50%; transform: translateX(-50%);">
+    <div class="rounded-4 visa p-4 text-white mx-auto" 
+    [ngClass]="{'rotated': rotateInput, 'rotate-360-animate': isBackgroundChanging}">
+        <app-background></app-background>
+        <div class="front d-flex flex-column p-4">
+            <div class="d-flex justify-content-between">
+                <img src="/assets/images/chip.png" height="60" />
+                <img src="/assets/images/{{visaImagePath}}.png" [ngClass]="{'up-down-animate': isImageChange}"
+                    height="60" />
+            </div>
+            <div class="d-flex flex-grow-1 gap-1 my-4">
+                <ng-container *ngFor="let char of visaCardNumbers; let i = index">
+                    <h3 class="shadow-text number-card"
+                        [ngClass]="{'ms-4': i % 4 == 0 && i != 0, 'up-down-animate': char.animate}">{{char.value}}</h3>
+                </ng-container>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <h6 class="shadow-text d-flex mb-1">Card Holder</h6>
+                    <div class="d-flex">
+                        <ng-container *ngFor="let char of visaCardNameHolder; let i = index">
+                            <h5 class="shadow-text name-holder text-center"
+                                [ngClass]="{'up-down-rotate-animate': char.animate}">
+                                {{char.value | uppercase}}</h5>
+                        </ng-container>
+                    </div>
+                    <!-- <h5 class="shadow-text">{{(cardHolderNameInput ? cardHolderNameInput : 'FULL NAME') | uppercase}}</h5> -->
+                </div>
+                <div class="col-3">
+                    <h6 class="shadow-text mb-1">Expires</h6>
+                    <div class="d-flex">
+                        <ng-container *ngFor="let char of monthNumbers; let i = index">
+                            <h5 class="shadow-text text-center expire" [ngClass]="{'up-down-animate': char.animate}">
+                                {{char.value | uppercase}}</h5>
+                        </ng-container>
+                        <h5 class="shadow-text text-center expire">/</h5>
+                        <ng-container *ngFor="let char of yearNumbers; let i = index">
+                            <h5 class="shadow-text text-center expire" [ngClass]="{'up-down-animate': char.animate}">
+                                {{char.value}}</h5>
+                        </ng-container>
+                    </div>
+                    <!-- <h5 class="shadow-text d-flex">
+                    <div class="expire-date">
+                        {{monthInput ? monthInput : 'MM'}}
+                    </div>
+                        /
+                    <div class="expire-date">
+                        {{(yearInput ? yearInput : 'YY') | yearCard}}
+                    </div>
+                </h5> -->
+                </div>
+            </div>
+        </div>
+        <div class="back py-4">
+            <div class="w-100 bg-dark mb-2" style="height: 50px;"></div>
+            <div class="px-3 d-flex flex-column align-items-end">
+                <div class="mb-3 w-100">
+                    <label class="form-label w-100 text-end shadow-text">CVV</label>
+                    <div class="form-control text-end py-3" style="height: 48px;">{{ccv}} </div>
+                </div>
+                <div>
+                    <img src="/assets/images/{{visaImagePath}}.png" height="60" style="opacity: .75;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
